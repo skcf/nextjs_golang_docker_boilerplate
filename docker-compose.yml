@@ -1,0 +1,23 @@
+version: "3.8"
+services:
+  frontend:
+    build:
+      context: ./frontend/.
+    container_name: frontend 
+    tty: true
+    ports:
+      - "3000:3000"
+    environment:
+     - WATCHPACK_POLLING=true
+    volumes:
+      - ./frontend/src:/app
+    command: sh -c "npm run dev"
+  backend: 
+    build: ./backend/.
+    container_name: backend
+    ports: 
+      - "8080:8000"
+    volumes:
+      - ./backend:/app
+    tty: true
+    command: sh -c "go run main.go"
